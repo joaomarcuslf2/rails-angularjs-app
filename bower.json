@@ -1,0 +1,23 @@
+{
+  "name": "rails-angularjs-app",
+  "description": "Demonstrative app simple message board",
+  "main": "main.js",
+  "authors": [
+    "João Marcus Fernandes <jmarcusfernandes@gmail.com>"
+  ],
+  "license": "MIT",
+  "keywords": [
+    "rails",
+    "angular",
+    "gulp"
+  ],
+  "homepage": "https://github.com/joaomarcuslf/rails-angularjs-app",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
