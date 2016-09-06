@@ -1,0 +1,24 @@
+{
+  "name": "rails-angularjs-app",
+  "version": "1.0.0",
+  "description": "Demonstrative app simple message board",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/joaomarcuslf/rails-angularjs-app.git"
+  },
+  "keywords": [
+    "rails",
+    "angular",
+    "gulp"
+  ],
+  "author": "João Marcus Fernandes <jmarcusfernandes@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/joaomarcuslf/rails-angularjs-app/issues"
+  },
+  "homepage": "https://github.com/joaomarcuslf/rails-angularjs-app#readme"
+}
