@@ -4,7 +4,8 @@
   "description": "Demonstrative app simple message board",
   "main": "main.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "ruby server.rb",
+    "rails": "cd messages-service/ && bundle exec rails server -b 0.0.0"
   },
   "repository": {
     "type": "git",
@@ -20,5 +21,37 @@
   "bugs": {
     "url": "https://github.com/joaomarcuslf/rails-angularjs-app/issues"
   },
-  "homepage": "https://github.com/joaomarcuslf/rails-angularjs-app#readme"
+  "homepage": "https://github.com/joaomarcuslf/rails-angularjs-app#readme",
+  "devDependencies": {
+    "babel-preset-es2015": "^6.9.0",
+    "gulp": "^3.9.1",
+    "gulp-autoprefixer": "^3.1.0",
+    "gulp-babel": "^6.1.2",
+    "gulp-clean": "^0.3.2",
+    "gulp-clean-css": "^2.0.12",
+    "gulp-concat": "^2.6.0",
+    "gulp-count": "^0.2.0",
+    "gulp-cssbeautify": "^0.1.3",
+    "gulp-csscomb": "^3.0.7",
+    "gulp-csslint": "^0.3.1",
+    "gulp-html-lint": "0.0.1",
+    "gulp-htmlmin": "^2.0.0",
+    "gulp-imagemin": "^3.0.2",
+    "gulp-jshint": "^2.0.1",
+    "gulp-jslint": "^1.0.1",
+    "gulp-less": "^3.0.5",
+    "gulp-multi-process": "0.0.3",
+    "gulp-rename": "^1.2.2",
+    "gulp-ruby-sass": "^2.0.6",
+    "gulp-run": "^1.7.1",
+    "gulp-scss-lint": "^0.4.0",
+    "gulp-sourcemaps": "^1.6.0",
+    "gulp-todo": "^4.1.0",
+    "gulp-uglifyjs": "^0.6.2",
+    "gulp-uncss": "^1.0.6",
+    "gulp-util": "^3.0.7",
+    "jshint": "^2.9.2",
+    "jshint-stylish": "^2.2.1",
+    "run-sequence": "1.2.0"
+  }
 }
