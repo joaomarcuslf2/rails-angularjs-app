@@ -4,7 +4,8 @@
   "description": "Demonstrative app simple message board",
   "main": "main.js",
   "scripts": {
-    "start": "ruby server.rb",
+  	"start": "npm install && bower install && cd messages-service/ && bundle install",
+    "server": "ruby server.rb",
     "rails": "cd messages-service/ && bundle exec rails server -b 0.0.0"
   },
   "repository": {
