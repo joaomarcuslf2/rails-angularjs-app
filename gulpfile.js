@@ -51,8 +51,24 @@ gulp.task('dev', function(cb) {
     return multiprocess(['frontend:server', 'backend:server'], cb);
 });
 
+gulp.task('rebundle', function(cb) {
+    return multiprocess(['npm-install', 'bower-install', 'bundle-install'], cb);
+});
+
+gulp.task('npm-install', function (done) {
+  return run('npm install').exec();
+});
+
+gulp.task('bower-install', function (done) {
+  return run('bower install').exec();
+});
+
+gulp.task('bundle-install', function (done) {
+  return run('cd messages-service/ && bundle install').exec();
+});
+
 gulp.task('frontend:server', function (done) {
-  return run('npm run start').exec();
+  return run('npm run server').exec();
 });
 
 gulp.task('backend:server', function (done) {
