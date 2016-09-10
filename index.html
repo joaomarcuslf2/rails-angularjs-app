@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta name="description" content="This weapp show angular and rails integration">
+		<meta name="abstract" content="Angular and Rails demonstrative app">
+		<meta name="keywords" content="Angularjs, messages, Ruby on Rails"> 
+		<meta name="author" content="João Marcus de Lemos Fernandes <jmarcusfernandes@gmail.com>">
+		<meta name="robot" content="all">
+		<meta name="rating" content="general">
+		<meta name="distribution" content="global">
+		<meta name="language" content="pt">
+
+		<title>NgRoR Messages</title>
+		<link rel="stylesheet" href="/vendor/bootstrap/dist/css/bootstrap.min.css">
+		<link rel="stylesheet" href="/vendor/font-awesome/css/font-awesome.min.css">
+	</head>
+	<body>
+		<div ng-app="ngRoRMessages">
+			<ng-include src="'./assets/views/layout.html'"></ng-include>
+			<div ng-view></div>
+		</div>
+		
+		<script src="/vendor/angular/angular.js" defer></script>
+		<script src="/vendor/angular-route/angular-route.js" defer></script>
+		<script src="/vendor/jquery/dist/jquery.min.js" defer></script>
+		<script src="/vendor/bootstrap/dist/js/bootstrap.min.js" defer></script>
+
+		<!-- APP INIT -->
+			<!-- APP -->
+				<script src="/app/app.js" defer></script>
+			<!-- Config -->
+				<script src="/app/config/run.js" defer></script>
+				<script src="/app/config/routes.js" defer></script>
+			<!-- Controllers -->
+
+		<!-- APP END -->
+	</body>
+</html>
