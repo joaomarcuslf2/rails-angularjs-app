@@ -22,7 +22,9 @@
   ],
   "dependencies": {
     "jquery": "2.2.0",
-    "angular": "1.5.7",
-    "bootstrap": "3.3.6"
+    "angular": "1.5.8",
+    "bootstrap": "3.3.6",
+    "angular-route": "1.5.8",
+    "font-awesome": "4.6.3"
   }
 }
