@@ -18,7 +18,7 @@
 		<link rel="stylesheet" href="/vendor/font-awesome/css/font-awesome.min.css">
 	</head>
 	<body>
-		<div ng-app="ngRoRMessages">
+		<div ng-app="ngRoRMessages" class="container-fluid">
 			<ng-include src="'./assets/views/layout.html'"></ng-include>
 			<div ng-view></div>
 		</div>
@@ -34,8 +34,10 @@
 			<!-- Config -->
 				<script src="/app/config/run.js" ></script>
 				<script src="/app/config/routes.js" ></script>
+				<script src="/app/config/http.js" ></script>
 			<!-- Controllers -->
 				<script src="/app/controllers/listingCtrl.js"></script>
+				<script src="/app/controllers/creatingCtrl.js"></script>
 			<!-- Services -->
 				<script src="/app/services/messagesService.js"></script>
 		<!-- APP END -->
