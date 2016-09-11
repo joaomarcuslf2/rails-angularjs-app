@@ -14,8 +14,23 @@ angular
 				url: url.prefix + '/posts' + url.sufix
 			}).success(successCalback);
 		}
+
+		function _send(post, successCalback) {
+			var postFormated = { post: post };
+			$http({
+				method: 'post',
+				crossDomain: true,
+				url: url.prefix + '/posts' + url.sufix,
+				type: 'json',
+				params: post
+			})
+			.success(successCalback)
+			.error(function(data) {
+			});
+		}
 	
 		return {
-			list: _list
+			list: _list,
+			send: _send
 		};
 	});

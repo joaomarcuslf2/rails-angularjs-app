@@ -1,0 +1,26 @@
+<section class="jumbotron text-center">
+	<h1>
+		Creating messages:
+	</h1>
+</section>
+
+<div class="col-md-4"></div>
+<form class="col-md-4 text-center" name="newMessageForm" ng-submit="sendMessage(post)">
+	<h3>
+		<label>
+			Title
+		</label>
+	</h3>
+	<input class="form-control" ng-model="post.title" ng-required="true" />
+
+	<label>
+			Description
+		</label>
+	</h3>
+	<textarea class="form-control" ng-model="post.description" ng-required="true" ></textarea>
+
+	<br>
+
+	<button type="submit" class="btn btn-primary btn-lg btn-block" ng-disabled="newMessageForm.$invalid && sendingMessage">Send</button>
+</form>
+<div class="col-md-4"></div>
