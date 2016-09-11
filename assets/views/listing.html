@@ -1,0 +1,26 @@
+<section class="jumbotron text-center">
+	<h1>
+		Listing messages:
+	</h1>
+</section>
+
+<table class="table table-striped">
+  <tbody>
+    <tr ng-repeat="message in messages">
+    	<td>
+	      <div class="row text-center">
+	      	<h2>
+	      		{{message.title}}
+	      	</h2>
+	      </div>
+	      <div class="row">
+	      	<div class="col-md-3"></div>
+	      	<p class="col-md-6" style="text-indent: 30px;">
+	      		{{message.description}}
+	      	</p>
+	      	<div class="col-md-3"></div>
+	      </div>
+	  	</td>
+    </tr>
+  </tbody>
+</table>
