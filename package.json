@@ -6,7 +6,7 @@
   "scripts": {
   	"start": "npm install && bower install && cd messages-service/ && bundle install",
     "server": "ruby server.rb",
-    "rails": "cd messages-service/ && bundle exec rails server -b 0.0.0"
+    "rails": "cd messages-service/ && bundle exec rails server -b 0.0.0.0"
   },
   "repository": {
     "type": "git",
