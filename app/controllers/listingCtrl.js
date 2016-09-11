@@ -1,13 +1,22 @@
 angular
 	.module('ngRoRMessages')
 	.controller('listingCtrl', ['$scope', 'messagesService', function ($scope, $messagesService) {
+		$scope.gettingMessages = false;
+		
 		function getMessages() {
-			$messagesService.list(function(data) {
-				$scope.messages = data;
+			if(!$scope.gettingMessages) {
+				$scope.gettingMessages = true;
 
-				setTimeout(getMessages, 3000);
-			});
+				$messagesService.list(function(data) {
+					$scope.gettingMessages = false;
+					$scope.messages = data;
+
+					setTimeout(getMessages, 3000);
+				});
+			}
 		}
+
+		$scope.getMessages = getMessages;
 
 		getMessages();
 	}]);
