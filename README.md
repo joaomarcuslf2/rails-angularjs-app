@@ -12,4 +12,5 @@ This is an AngularJS's message board demonstrative application.
 # Getting started:
 ```sh
 	npm run start
+	gulp dev
 ```
