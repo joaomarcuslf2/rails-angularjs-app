@@ -68,10 +68,14 @@ gulp.task('bundle-install', function (done) {
 });
 
 gulp.task('frontend:server', function (done) {
+  gutil.log("Running Frontend:server at:");
+  gutil.log("http://localhost:8000/");
   return run('npm run server').exec();
 });
 
 gulp.task('backend:server', function (done) {
+  gutil.log("Running Backend:server at:");
+  gutil.log("http://localhost:3000/");
   return run('npm run rails').exec();
 });
 
