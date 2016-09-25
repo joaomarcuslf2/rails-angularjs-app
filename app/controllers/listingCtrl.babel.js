@@ -1,13 +1,13 @@
 angular
 	.module('ngRoRMessages')
-	.controller('listingCtrl', ['$scope', 'messagesService', function ($scope, $messagesService) {
+	.controller('listingCtrl', ['$scope', 'messagesService', ($scope, $messagesService) => {
 		$scope.gettingMessages = false;
 		
-		function getMessages() {
+		 let getMessages = () => {
 			if(!$scope.gettingMessages) {
 				$scope.gettingMessages = true;
 
-				$messagesService.list(function(data) {
+				$messagesService.list((data) => {
 					$scope.gettingMessages = false;
 					$scope.messages = data;
 

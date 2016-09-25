@@ -1,200 +1,219 @@
-var gulp             = require('gulp'),
-    gutil            = require('gulp-util'),
-    clean            = require('gulp-clean'),
-    concat           = require('gulp-concat'),
-    count            = require('gulp-count'),
-    multiprocess     = require('gulp-multi-process'),
-    rename           = require('gulp-rename'),
-    runsequence      = require('run-sequence'),
-    sourcemaps       = require('gulp-sourcemaps'),
-    todo             = require('gulp-todo'),
-    cp               = require('child_process'),
-    run              = require('gulp-run'),
-    path             = require('path');
+'use strict';
+
+import gulp from 'gulp';
+import gutil from 'gulp-util';
+import clean from 'gulp-clean';
+import concat from 'gulp-concat';
+import count from 'gulp-count';
+import multiprocess from 'gulp-multi-process';
+import rename from 'gulp-rename';
+import runsequence from 'run-sequence';
+import sourcemaps from 'gulp-sourcemaps';
+import todo from 'gulp-todo';
+import cp from 'child_process';
+import run from 'gulp-run';
+import path from 'path';
+import ngAnnotate from 'gulp-ng-annotate';
 
 /* CSS */
 
-var csslint          = require('gulp-csslint'),
-    cleancss         = require('gulp-clean-css'),
-    beautify         = require('gulp-cssbeautify'),
-    csscomb          = require('gulp-csscomb'),
-    uncss            = require('gulp-uncss'),
-    autoprefixer     = require('gulp-autoprefixer');
+import csslint from 'gulp-csslint';
+import cleancss from 'gulp-clean-css';
+import beautify from 'gulp-cssbeautify';
+import csscomb from 'gulp-csscomb';
+import uncss from 'gulp-uncss';
+import autoprefixer from 'gulp-autoprefixer';
 
 /* SCSS */
 
-var sass             = require('gulp-ruby-sass'),
-    scsslint         = require('gulp-scss-lint');
+import sass from 'gulp-ruby-sass';
+import scsslint from 'gulp-scss-lint';
 
 /* JS */
 
-var uglify           = require('gulp-uglifyjs'),
-    jshint           = require('gulp-jshint'),
-    jslint           = require('gulp-jslint'),
-    babel            = require('gulp-babel');;
+import uglify from 'gulp-uglifyjs';
+import jshint from 'gulp-jshint';
+import jslint from 'gulp-jslint';
+import babel from 'gulp-babel';
 
 /* Images */
 
-var imagemin         = require('gulp-imagemin');
+import imagemin from 'gulp-imagemin';
 
 /* Tasks */
 
-gulp.task('default', function () {
+gulp.task('default', () => {
     gutil.log("Gulp is working fine");
     return gulp.src("./*.js")
         .pipe(jslint())
         .pipe(jshint.reporter('default'));
 });
 
-gulp.task('dev', function(cb) {
+gulp.task('dev', (cb) => {
     gutil.log("Running Development Enviroment");
     return multiprocess(['frontend:server', 'backend:server'], cb);
 });
 
-gulp.task('rebundle', function(cb) {
+gulp.task('rebundle', (cb) => {
     return multiprocess(['npm-install', 'bower-install', 'bundle-install'], cb);
 });
 
-gulp.task('npm-install', function (done) {
-  return run('npm install').exec();
+gulp.task('npm-install', (done) => {
+    return run('npm install').exec();
 });
 
-gulp.task('bower-install', function (done) {
-  return run('bower install').exec();
+gulp.task('bower-install', (done) => {
+    return run('bower install').exec();
 });
 
-gulp.task('bundle-install', function (done) {
-  return run('cd messages-service/ && bundle install').exec();
+gulp.task('bundle-install', (done) => {
+    return run('cd messages-service/ && bundle install').exec();
 });
 
-gulp.task('frontend:server', function (done) {
-  gutil.log("Running Frontend:server at:");
-  gutil.log("http://localhost:8000/");
-  return run('npm run server').exec();
+gulp.task('frontend:server', (done) => {
+    gutil.log("Running Frontend:server at:");
+    gutil.log("http://localhost:8000/");
+    return run('npm run server').exec();
 });
 
-gulp.task('backend:server', function (done) {
-  gutil.log("Running Backend:server at:");
-  gutil.log("http://localhost:3000/");
-  return run('npm run rails').exec();
+gulp.task('backend:server', (done) => {
+    gutil.log("Running Backend:server at:");
+    gutil.log("http://localhost:3000/");
+    return run('npm run rails').exec();
 });
 
-gulp.task('todo', function () {
+gulp.task('todo', () => {
     gutil.log("Running TODO task");
     gulp.src("./assets/js/**/*.js")
         .pipe(todo())
         .pipe(gulp.dest('./assets/md'));
 });
 
-gulp.task('build', function (callback) {
+gulp.task('build', (callback) => {
     gutil.log("Running BUILD task");
     return runsequence('lint:all', ['default', 'todo', 'build:all'], callback);
 });
 
-gulp.task('build:prod', function (callback) {
+gulp.task('build:prod', (callback) => {
     gutil.log("Running BUILD task for production");
     return runsequence('default', ['build:all'], callback);
 });
 
 // All
 
-gulp.task('lint:all', function (cb) {
+gulp.task('lint:all', (cb) => {
     gutil.log("Linting all");
     return multiprocess(['lint:scss', 'lint:js', 'lint:css', 'todo'], cb);
 });
 
-gulp.task('build:all', function (callback) {
+gulp.task('build:all', (callback) => {
     gutil.log("Building all assets");
     return runsequence('scss', ['css', 'js', 'img'], callback);
 });
 
-gulp.task('watch:multi', function (cb) {
+gulp.task('watch:multi', (cb) => {
     gutil.log("Watching all assets multi threaded");
     return multiprocess(['watch:scss', 'watch:css', 'watch:js', 'watch:img'], cb);
 });
 
-gulp.task('watch:all', function () {
+gulp.task('watch:all', () => {
     gutil.log("Watching ALL modifications");
     gulp.watch([
-               './assets/**/*.js',
-               './assets/**/*.scss',
-               './assets/**/*.jpeg',
-               './assets/**/*.jpg',
-               './assets/**/*.png',
-               './assets/**/*.svg',
-               './app/**/*.js',
-               './*.js',
-               './*.json',
-               ], ['default', 'todo', 'build:all']);
+        './assets/**/*.babel.js',
+        './assets/**/*.scss',
+        './assets/**/*.jpeg',
+        './assets/**/*.jpg',
+        './assets/**/*.png',
+        './assets/**/*.svg',
+        './app/**/*.babel.js',
+        './*.babel.js',
+        './*.json',
+    ], ['default', 'todo', 'build:all']);
 });
 
 // JavaScript
 
-gulp.task('js', function (callback) {
+gulp.task('js', (callback) => {
     gutil.log("Running JS task");
     return runsequence('lint:js', ['concat:js'], callback);
 });
 
-gulp.task('watch:js', function () {
+gulp.task('watch:js', () => {
     gutil.log("Watching JS modifications");
-    gulp.watch('./assets/js/**/*.js', ['concat:js']);
+    gulp.watch([
+                './assets/js/**/*.babel.js',
+                './app/**/*.babel.js',
+               ], ['concat:js']);
 });
 
-gulp.task('lint:js', function () {
+gulp.task('lint:js', () => {
     gutil.log("Linting JavaScript");
-    return gulp.src("./assets/js/**/*.js")
+    return gulp.src("./assets/js/**/*.babel.js")
         .pipe(count('## js-files selected'))
         .pipe(jslint())
         .pipe(jshint.reporter('jshint-stylish'));
 });
 
-gulp.task('concat:js', function (callback) {
+gulp.task('concat:js', (callback) => {
     gutil.log("Concatenating JS files");
-    return runsequence(['concat:normal:js', 'concat:min:js'], callback);
+    return runsequence(['concat:normal:js', 'concat:min:js', 'concat:app'], callback);
 });
 
-gulp.task('concat:normal:js', function () {
+gulp.task('concat:normal:js', () => {
     gutil.log("Concatenating to non-minified js");
-    return gulp.src("./assets/js/**/*.js")
+    return gulp.src("./assets/js/**/*.babel.js")
         .pipe(count('## js-files selected'))
         .pipe(babel({
-          presets: ['es2015']
+            presets: ['es2015']
         }))
         .pipe(concat('custom.js'))
         .pipe(gulp.dest('./lib/custom/'));
 });
 
-gulp.task('concat:min:js', function () {
+gulp.task('concat:min:js', () => {
     gutil.log("Concatenating to minified js");
-    return gulp.src("./assets/js/**/*.js")
+    return gulp.src("./assets/js/**/*.babel.js")
         .pipe(count('## js-files selected'))
         .pipe(babel({
-          presets: ['es2015']
+            presets: ['es2015']
         }))
         .pipe(concat('custom.min.js'))
         .pipe(uglify())
         .pipe(gulp.dest('./lib/custom/'));
 });
 
+gulp.task('concat:app', () => {
+    gutil.log("Concatenating to minified js");
+    return gulp.src("./app/**/*.babel.js")
+        .pipe(count('## js-files selected'))
+        .pipe(babel({
+            presets: ['es2015']
+        }))
+        .pipe(ngAnnotate())
+        .pipe(concat('app.min.js'))
+        .pipe(uglify())
+        .pipe(gulp.dest('./lib/custom/'));
+});
+
 // CSS
 
-gulp.task('css', function (callback) {
+gulp.task('css', (callback) => {
     gutil.log("Running CSS task");
     return runsequence('lint:css', ['beautify:css', 'minify:css'], callback);
 });
 
-gulp.task('watch:css', function () {
+gulp.task('watch:css', () => {
     gutil.log("Watching CSS modifications");
     gulp.watch('lib/custom/custom.css', ['css']);
 });
 
-gulp.task('lint:css', function () {
+gulp.task('lint:css', () => {
     gutil.log("Linting CSS");
     gulp.src("./lib/custom/custom.css")
         .pipe(csslint());
 });
 
-gulp.task('beautify:css', function () {
+gulp.task('beautify:css', () => {
     gutil.log("Beautifying CSS");
     return gulp.src('./lib/custom/custom.css')
         .pipe(beautify({
@@ -207,13 +226,13 @@ gulp.task('beautify:css', function () {
         .pipe(gulp.dest('assets/css/'));
 });
 
-gulp.task('minify:css', function () {
+gulp.task('minify:css', () => {
     gutil.log("Minifing CSS");
     return gulp.src("./lib/custom/custom.css")
         .pipe(cleancss({
             compatibility: 'ie8',
             debug: true
-        }, function (details) {
+        }, (details) => {
             gutil.log(details.name + ': ' + details.stats.originalSize);
             gutil.log(details.name + ': ' + details.stats.minifiedSize);
         }))
@@ -224,55 +243,59 @@ gulp.task('minify:css', function () {
 
 // Sass
 
-gulp.task('scss', function (callback) {
+gulp.task('scss', (callback) => {
     gutil.log("Running SCSS task");
     return runsequence('lint:scss', ['compile:custom:scss'], callback);
 });
 
-gulp.task('watch:scss', function () {
+gulp.task('watch:scss', () => {
     gutil.log("Watching SCSS modifications");
     gulp.watch('assets/scss/**/*.scss', ['scss']);
 });
 
-gulp.task('lint:scss', function () {
+gulp.task('lint:scss', () => {
     gutil.log("Linting SCSS");
     return gulp.src('assets/scss/**/*.scss')
         .pipe(count('## scss-files selected'))
         .pipe(scsslint());
 });
 
-gulp.task('compile:scss', function () {
+gulp.task('compile:scss', () => {
     gutil.log("Compiling normal SCSS files");
     return sass('./assets/scss/**/*.scss')
         .on('error', sass.logError)
         .pipe(count('## scss-files selected'))
-        .pipe(autoprefixer(['last 15 versions', '> 1%', 'ie 8', 'ie 7'], { cascade: true }))
+        .pipe(autoprefixer(['last 15 versions', '> 1%', 'ie 8', 'ie 7'], {
+            cascade: true
+        }))
         .pipe(gulp.dest('assets/css/'));
 });
 
-gulp.task('compile:custom:scss', function () {
+gulp.task('compile:custom:scss', () => {
     gutil.log("Compiling custom SCSS file");
     return sass('./assets/scss/style.scss')
         .on('error', sass.logError)
         .pipe(count('## scss-files selected'))
-        .pipe(autoprefixer(['last 15 versions', '> 1%', 'ie 8', 'ie 7'], { cascade: true }))
+        .pipe(autoprefixer(['last 15 versions', '> 1%', 'ie 8', 'ie 7'], {
+            cascade: true
+        }))
         .pipe(rename('custom.css'))
         .pipe(gulp.dest('lib/custom/'));
 });
 
 // IMG
 
-gulp.task('img', function (callback) {
+gulp.task('img', (callback) => {
     gutil.log("Running IMG task");
     return runsequence('minify:img');
 });
 
-gulp.task('watch:img', function () {
+gulp.task('watch:img', () => {
     gutil.log("Watching IMG modifications");
     gulp.watch('assets/img/**/', ['img']);
 });
 
-gulp.task('minify:img', function () {
+gulp.task('minify:img', () => {
     gutil.log("Minifying IMG");
     return gulp.src('./assets/img/**/')
         .pipe(count('## img-files selected'))

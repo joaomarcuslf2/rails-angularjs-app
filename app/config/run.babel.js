@@ -1,4 +1,4 @@
 angular
 	.module('ngRoRMessages')
-	.run(function() {
+	.run(() => {
 	});
